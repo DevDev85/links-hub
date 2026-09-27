@@ -11,9 +11,11 @@ Link hub for Develop Device (bio link for Instagram, TikTok, YouTube). Plain sta
 
 ## Store data
 
-`scripts/update-data.mjs` bakes the trending cards and product counts into `index.html` every hour
-(`.github/workflows/update-data.yml`), so they show without JavaScript and behind blockers. `assets/app.js` still refreshes
-them live in the browser when it can. Asset URLs carry `?v=N`; bump it after changing CSS, JS or fonts.
+`scripts/update-data.mjs` bakes live data into `index.html` every hour (`.github/workflows/update-data.yml`), so the page
+is complete without JavaScript and behind blockers: trending (weekly top-25 collection), new releases (newest published
+products), plugins & apps, custom services, the 4 latest YouTube videos, the 4 latest blog posts and every product count
+(`data-count="<collection>"`). Regions are marked `<!-- data:NAME:start/end -->`. Asset URLs carry `?v=N`; bump it
+after changing CSS, JS or fonts.
 
 ## Editing
 
