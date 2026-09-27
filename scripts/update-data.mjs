@@ -29,7 +29,7 @@ const list = products.filter((p) => p.handle !== "all-access-pass-annual-members
 if (list.length >= 3) {
   const cards = list.map((p, i) => {
     const src = p.images[0].src + (p.images[0].src.includes("?") ? "&" : "?") + "width=400&height=400&crop=center";
-    return `        <a class="trend__card" href="${STORE}/products/${p.handle}?${UTM}&amp;utm_content=trending">` +
+    return `        <a class="trend__card" target="_blank" rel="noopener" href="${STORE}/products/${p.handle}?${UTM}&amp;utm_content=trending">` +
       `<span class="trend__media"><span class="trend__rank">#${i + 1}</span><img loading="lazy" width="400" height="400" alt="" src="${esc(src)}"></span>` +
       `<span class="trend__body"><span class="trend__t">${esc(p.title.replace(/:.*$/, ""))}</span><span class="trend__k">${kind(p)}</span></span></a>`;
   }).join("\n");

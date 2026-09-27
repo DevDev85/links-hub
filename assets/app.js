@@ -44,6 +44,8 @@
         var img = p.images[0].src + (p.images[0].src.indexOf("?") > -1 ? "&" : "?") + "width=400&height=400&crop=center";
         var a = document.createElement("a");
         a.className = "trend__card";
+        a.target = "_blank";
+        a.rel = "noopener";
         a.href = STORE + "/products/" + p.handle + "?utm_source=links&utm_medium=linkhub&utm_content=trending";
         a.innerHTML =
           '<span class="trend__media"><span class="trend__rank">#' + (i + 1) + '</span>' +
