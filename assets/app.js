@@ -10,15 +10,10 @@
     a.href = u.toString();
   });
 
-  // 2. Price step badge: shown only until the date in data-until.
-  document.querySelectorAll("[data-until]").forEach(function (el) {
-    if (Date.now() < Date.parse(el.getAttribute("data-until"))) el.hidden = false;
-  });
-
   var y = document.querySelector("[data-year]");
   if (y) y.textContent = new Date().getFullYear();
 
-  // 3. Live product counts from the store (collection JSON is public with CORS *). Fallback numbers stay in the HTML.
+  // 2. Live product counts from the store (collection JSON is public with CORS *). Fallback numbers stay in the HTML.
   document.querySelectorAll("[data-count]").forEach(function (el) {
     fetch(STORE + "/collections/" + el.getAttribute("data-count") + ".json")
       .then(function (r) { return r.ok ? r.json() : null; })
@@ -26,7 +21,7 @@
       .catch(function () {});
   });
 
-  // 4. Trending: the weekly top-25 collection (rotated by the n8n workflow), first 12 without the pass itself.
+  // 3. Trending: the weekly top-25 collection (rotated by the n8n workflow), first 12 without the pass itself.
   var box = document.querySelector("[data-trend]");
   if (!box) return;
   var kind = function (p) {
