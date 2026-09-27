@@ -24,7 +24,7 @@ const kind = (p) => {
 };
 const A = (href, cls, inner) => `<a class="${cls}" target="_blank" rel="noopener" href="${href}">${inner}</a>`;
 const pcard = (p, label, rank) => A(`${STORE}/products/${p.handle}?${UTM}`, "pcard",
-  `<span class="pcard__media">${rank ? `<span class="pcard__rank">#${rank}</span>` : ""}<img loading="lazy" width="400" height="400" alt="" src="${esc(img(p.images[0].src, 400, 400))}"></span>` +
+  `<span class="pcard__media">${rank ? `<span class="pcard__rank">#${rank}</span>` : ""}<img loading="lazy" width="400" height="400" alt="${esc(short(p.title))}" src="${esc(img(p.images[0].src, 400, 400))}"></span>` +
   `<span class="pcard__body"><span class="pcard__t">${esc(short(p.title))}</span><span class="pcard__k">${esc(label)}</span></span>`);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -75,7 +75,7 @@ await job("services", async () => {
   // Only real custom services (same rule as the store's "Fully booked" badge); software in the collection is left out.
   const list = (await products("premium-custom-services", 10)).filter((p) => !SKIP(p) && /Custom Services/.test(p.product_type || "")).slice(0, 4);
   return list.length ? list.map((p) => A(`${STORE}/products/${p.handle}?${UTM}`, "svc",
-    `<img loading="lazy" width="160" height="160" alt="" src="${esc(img(p.images[0].src, 160, 160))}">` +
+    `<img loading="lazy" width="160" height="160" alt="${esc(short(p.title))}" src="${esc(img(p.images[0].src, 160, 160))}">` +
     `<span class="svc__tx"><b>${esc(short(p.title))}</b><small>${esc(p.title.includes(":") ? p.title.split(":").slice(1).join(":").trim() : p.product_type || "")}</small></span><span class="go" aria-hidden="true">→</span>`)).join("\n") : "";
 });
 
@@ -86,7 +86,7 @@ await job("videos", async () => {
     title: unesc(m[1].match(/<title>([^<]+)/)?.[1] || ""),
   })).filter((v) => v.id);
   return entries.length ? entries.map((v) => A(`https://www.youtube.com/watch?v=${v.id}`, "vid",
-    `<span class="vid__media"><img loading="lazy" width="480" height="270" alt="" src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg"><span class="vid__play" aria-hidden="true"></span></span>` +
+    `<span class="vid__media"><img loading="lazy" width="480" height="270" alt="${esc(v.title)}" src="https://i.ytimg.com/vi/${v.id}/mqdefault.jpg"><span class="vid__play" aria-hidden="true"></span></span>` +
     `<span class="vid__t">${esc(v.title)}</span>`)).join("\n") : "";
 });
 
