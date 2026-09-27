@@ -195,18 +195,28 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
 
 /* desktop, 1600px wide layout */
 @media (min-width: 1100px) {
-  .top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; }
-  .profile { display: flex; align-items: center; gap: 32px; text-align: left; }
-  .profile__avatar { width: 188px; height: 188px; margin: 0; border-radius: 50px; }
-  .profile__avatar img { border-radius: 46px; }
-  .profile__logo { margin: 0 0 10px; width: 230px; }
-  .profile__lead { margin-left: 0; font-size: 18.5px; }
-  .socials { justify-content: flex-start; }
-  .socials a { width: 58px; height: 58px; border-radius: 18px; }
-  .socials svg { width: 26px; height: 26px; }
-  .quick { margin-top: 0; grid-template-columns: repeat(3, 1fr); }
-  .quick__a { min-height: 92px; padding: 18px 20px; }
+  /* hero: one grid, both halves exactly the same height (2 x 106px rows + 12px gap = 224px) */
+  .top { --hero-h: 224px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; align-items: stretch; }
+  .profile { display: grid; grid-template-columns: var(--hero-h) minmax(0, 1fr); gap: 36px; align-items: stretch; text-align: left; }
+  .profile__avatar { width: var(--hero-h); height: var(--hero-h); margin: 0; border-radius: 52px; }
+  .profile__avatar img { border-radius: 48px; }
+  .profile__id { display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; height: var(--hero-h); }
+  .profile__logo { margin: 0; width: 176px; }
+  .profile__who { margin-top: 10px; font-size: 13px; }
+  .profile__lead { margin: 4px 0 0; max-width: none; font-size: 17px; line-height: 1.45; text-wrap: pretty; }
+  .socials { justify-content: flex-start; margin-top: auto; }
+  .socials a { width: 56px; height: 56px; border-radius: 17px; }
+  .socials svg { width: 25px; height: 25px; }
+  .quick { margin-top: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, 1fr); gap: 12px; height: var(--hero-h); }
+  .quick__a { min-height: 0; padding: 0 22px; }
   .quick__a--main { grid-column: auto; }
+}
+@media (min-width: 1100px) and (max-width: 1439px) {
+  .top { gap: 32px; }
+  .profile { gap: 28px; }
+  .profile__who { display: none; }
+  .profile__lead { font-size: 16px; }
+  .quick__a { padding: 0 16px; }
   .block { margin-top: 56px; }
   .block h2 { font-size: 27px; }
   .plat { grid-template-columns: 1fr 2fr 1fr 1fr; gap: 32px; }
