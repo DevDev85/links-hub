@@ -70,7 +70,7 @@ img { display: block; max-width: 100%; }
 .quick__a:hover { border-color: var(--line-strong); background: rgba(79, 54, 206, .16); transform: translateY(-2px); }
 .quick__a b { font: 600 16.5px/1.2 var(--display); }
 .quick__a small { margin-top: 3px; font-size: 13px; color: var(--dim); }
-.quick__a--main { grid-column: 1 / -1; background: var(--accent); border-color: transparent; box-shadow: 0 14px 34px -14px rgba(79, 54, 206, .9); }
+.quick__a--main { background: var(--accent); border-color: transparent; box-shadow: 0 14px 34px -14px rgba(79, 54, 206, .9); }
 .quick__a--main small { color: rgba(255, 255, 255, .78); }
 .quick__a--main:hover { background: var(--accent); filter: brightness(1.12); }
 
@@ -154,7 +154,7 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
 
 /* rows */
 .rows { display: grid; gap: 8px; }
-.row { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--surface);
+.row { display: flex; align-items: center; gap: 14px; min-height: 78px; padding: 14px 16px; border-radius: 16px; background: var(--surface);
   border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: border-color .2s, background .2s; }
 .row:hover { border-color: var(--line-strong); background: rgba(79, 54, 206, .14); }
 .row__ic { flex: none; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; background: rgba(79, 54, 206, .22); }
@@ -184,8 +184,9 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
 @media (min-width: 760px) {
   .wrap { width: min(100% - 56px, 1600px); padding-top: 60px; }
   .gear { grid-template-columns: repeat(4, 1fr); }
+  .quick { grid-template-columns: repeat(3, 1fr); }
   .gear__tile { min-height: 230px; padding: 18px; }
-  .plat { grid-template-columns: repeat(2, 1fr); padding: 26px 28px; }
+  .plat { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 26px 28px; }
   .cards { grid-auto-flow: row; grid-template-columns: repeat(4, 1fr); overflow: visible; margin: 0; padding: 0; }
   .vids { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); overflow: visible; margin: 0; padding: 0; }
   .svcs { grid-template-columns: repeat(2, 1fr); }
@@ -209,25 +210,28 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
   .socials svg { width: 25px; height: 25px; }
   .quick { margin-top: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, 1fr); gap: 12px; height: var(--hero-h); }
   .quick__a { min-height: 0; padding: 0 22px; }
-  .quick__a--main { grid-column: auto; }
+
+  /* sections: equal columns everywhere, full rows only */
+  .block { margin-top: 56px; }
+  .block h2 { font-size: 27px; }
+  .plat { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; }
+  .cards { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .cards--new { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .vids { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .svcs { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .svc { flex-direction: column; align-items: flex-start; padding: 16px; }
+  .svc img { width: 100%; height: auto; aspect-ratio: 16 / 10; }
+  .svc .go { display: none; }
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .row__tx b, .row__tx small { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
+/* small desktops: the same grid, tighter */
 @media (min-width: 1100px) and (max-width: 1439px) {
   .top { gap: 32px; }
   .profile { gap: 28px; }
   .profile__who { display: none; }
   .profile__lead { font-size: 16px; }
   .quick__a { padding: 0 16px; }
-  .block { margin-top: 56px; }
-  .block h2 { font-size: 27px; }
-  .plat { grid-template-columns: 1fr 2fr 1fr 1fr; gap: 32px; }
-  .cards { grid-template-columns: repeat(6, 1fr); gap: 14px; }
-  .cards--new { grid-template-columns: repeat(8, 1fr); }
-  .vids { grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  .svcs { grid-template-columns: repeat(4, 1fr); }
-  .svc { flex-direction: column; align-items: flex-start; padding: 16px; }
-  .svc img { width: 100%; height: auto; aspect-ratio: 16 / 10; }
-  .svc .go { display: none; }
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
