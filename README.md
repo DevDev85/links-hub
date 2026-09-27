@@ -9,6 +9,12 @@ Link hub for Develop Device (bio link for Instagram, TikTok, YouTube). Plain sta
 - `assets/styles.css`, `assets/img/`, `assets/fonts/` – design, images and the store fonts (Clash Display, Clash Grotesk).
 - `CNAME` – custom domain for GitHub Pages.
 
+## Store data
+
+`scripts/update-data.mjs` bakes the trending cards and product counts into `index.html` every hour
+(`.github/workflows/update-data.yml`), so they show without JavaScript and behind blockers. `assets/app.js` still refreshes
+them live in the browser when it can. Asset URLs carry `?v=N`; bump it after changing CSS, JS or fonts.
+
 ## Editing
 
 Change `index.html`, commit, push to `main`. GitHub Pages publishes in about a minute.

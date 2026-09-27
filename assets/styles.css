@@ -1,6 +1,6 @@
 /* Same fonts as developdevice.com (theme: Clash Display headings, Clash Grotesk text; Fontshare, ITF free font licence). */
-@font-face { font-family: "Clash Display"; src: url("/assets/fonts/ClashDisplay-Variable.woff2") format("woff2"); font-weight: 200 700; font-display: swap; }
-@font-face { font-family: "Clash Grotesk"; src: url("/assets/fonts/ClashGrotesk-Variable.woff2") format("woff2"); font-weight: 200 700; font-display: swap; }
+@font-face { font-family: "Clash Display"; src: url("/assets/fonts/ClashDisplay-Variable.woff2?v=1") format("woff2"); font-weight: 200 700; font-display: swap; }
+@font-face { font-family: "Clash Grotesk"; src: url("/assets/fonts/ClashGrotesk-Variable.woff2?v=1") format("woff2"); font-weight: 200 700; font-display: swap; }
 /* Develop Device link hub. One column on phones (most visits come from social bios), wider grids on desktop. */
 :root {
   --bg: #0a0a10;
