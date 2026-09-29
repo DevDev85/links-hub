@@ -21,4 +21,5 @@ jobs:
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git commit -am "Update trending and counts from the store"
             git push
+            curl -s -o /dev/null -w "IndexNow %{http_code}\n" "https://api.indexnow.org/indexnow?url=https://links.developdevice.com/&key=8f4e4c15238aef94b088aa64a8b3f4b5" || true
           fi

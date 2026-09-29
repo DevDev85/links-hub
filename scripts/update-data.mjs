@@ -109,5 +109,13 @@ for (const m of [...html.matchAll(/data-count="([a-z0-9-]+)">(\d*)</g)]) {
   } catch (e) { console.warn(`count ${m[1]}: ${e.message}`); }
 }
 
-if (html !== before) { await writeFile("index.html", html); console.log("index.html updated"); }
+// Inline the stylesheet (no render-blocking request); assets/styles.css stays the source of truth.
+put("css", `  <style>\n${(await readFile("assets/styles.css", "utf8")).trim()}\n  </style>`);
+
+if (html !== before) {
+  await writeFile("index.html", html);
+  const today = new Date().toISOString().slice(0, 10);
+  await writeFile("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://links.developdevice.com/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq></url>\n</urlset>\n`);
+  console.log("index.html updated");
+}
 else console.log("no change");
