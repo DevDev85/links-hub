@@ -23,8 +23,14 @@ const kind = (p) => {
   return "Develop Device";
 };
 const A = (href, cls, inner) => `<a class="${cls}" target="_blank" rel="noopener" href="${href}">${inner}</a>`;
-const pcard = (p, label, rank) => A(`${STORE}/products/${p.handle}?${UTM}`, "pcard",
-  `<span class="pcard__media">${rank ? `<span class="pcard__rank">#${rank}</span>` : ""}<img loading="lazy" width="400" height="400" alt="${esc(short(p.title))}" src="${esc(img(p.images[0].src, 400, 400))}"></span>` +
+// Responsive product images: the browser picks 200/300/400 px by the real card width (the CDN already serves WebP/AVIF).
+const SIZES = {
+  six: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 70px) / 6), (min-width: 760px) calc((100vw - 86px) / 4), 44vw",
+  eight: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 98px) / 8), (min-width: 760px) calc((100vw - 86px) / 4), 44vw",
+};
+const srcset = (src) => [200, 300, 400].map((w) => `${esc(img(src, w, w))} ${w}w`).join(", ");
+const pcard = (p, label, rank, sizes = SIZES.six) => A(`${STORE}/products/${p.handle}?${UTM}`, "pcard",
+  `<span class="pcard__media">${rank ? `<span class="pcard__rank">#${rank}</span>` : ""}<img loading="lazy" decoding="async" width="400" height="400" alt="${esc(short(p.title))}" src="${esc(img(p.images[0].src, 400, 400))}" srcset="${srcset(p.images[0].src)}" sizes="${sizes}"></span>` +
   `<span class="pcard__body"><span class="pcard__t">${esc(short(p.title))}</span><span class="pcard__k">${esc(label)}</span></span>`);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -63,7 +69,7 @@ await job("new", async () => {
   }
   const list = all.filter((p) => !SKIP(p) && p.published_at).sort((a, b) => b.published_at.localeCompare(a.published_at)).slice(0, 8);
   const month = (d) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  return list.length >= 3 ? list.map((p) => pcard(p, `${kind(p)} · ${month(p.published_at)}`)).join("\n") : "";
+  return list.length >= 3 ? list.map((p) => pcard(p, `${kind(p)} · ${month(p.published_at)}`, 0, SIZES.eight)).join("\n") : "";
 });
 
 await job("apps", async () => {
