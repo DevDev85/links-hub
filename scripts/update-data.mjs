@@ -110,8 +110,15 @@ await job("posts", async () => {
 
 for (const m of [...html.matchAll(/data-count="([a-z0-9-]+)">(\d*)</g)]) {
   try {
-    const { collection } = await get(`${STORE}/collections/${m[1]}.json`);
-    if (collection?.products_count > 0) html = html.replace(m[0], `data-count="${m[1]}">${collection.products_count}<`);
+    // Count what a visitor actually sees: products.json lists only published products, while
+    // collections/<handle>.json products_count also includes hidden ones (e.g. retired plugin versions).
+    let count = 0;
+    for (let page = 1; ; page++) {
+      const { products: batch } = await get(`${STORE}/collections/${m[1]}/products.json?limit=250&page=${page}`);
+      count += batch.length;
+      if (batch.length < 250) break;
+    }
+    if (count > 0) html = html.replace(m[0], `data-count="${m[1]}">${count}<`);
   } catch (e) { console.warn(`count ${m[1]}: ${e.message}`); }
 }
 
