@@ -278,6 +278,20 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Trial promotion: static markup survives the hourly store data refresh. */
+.trial-promo { position:relative; isolation:isolate; overflow:hidden; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); gap:32px; align-items:center; margin-top:32px; padding:clamp(24px,4vw,54px); border:1px solid #9575ed; border-radius:28px; background:radial-gradient(ellipse at 85% 40%,#512dab70,transparent 60%),linear-gradient(135deg,#201534,#100e19); box-shadow:0 18px 60px -35px #925aff; }
+.trial-promo__tag { display:inline-block; color:#8cf1d8; font:650 12px/1.4 var(--display); letter-spacing:.16em; text-transform:uppercase; }
+.trial-promo h2 { margin:13px 0; font:650 clamp(34px,3.6vw,58px)/1.02 var(--display); letter-spacing:-.025em; text-wrap:balance; }
+.trial-promo h2 span { color:#bca1ff; }
+.trial-promo p { margin:0 0 20px; max-width:500px; color:var(--dim); font-size:16px; line-height:1.6; }
+.trial-promo__cta { display:inline-flex; align-items:center; justify-content:center; gap:18px; padding:16px 25px; border-radius:99px; background:linear-gradient(100deg,#5935d4,#8241ec); color:white; font:650 17px/1.2 var(--display); box-shadow:0 10px 30px -14px #9761ff; }
+.trial-promo__cta:hover { filter:brightness(1.15); }
+.trial-promo small { display:block; margin-top:12px; color:var(--faint); font-size:12px; line-height:1.5; }
+.trial-promo__visual { position:relative; min-width:0; padding:20px 0; }
+.trial-promo__visual img { display:block; width:100%; height:auto; border:1px solid #ffffff24; border-radius:12px; box-shadow:0 25px 55px #0009; transform:perspective(1000px) rotateY(-8deg) rotateZ(2deg); }
+.trial-promo__caption { display:block; margin-top:20px; color:var(--lav); font:600 12px/1.4 var(--display); letter-spacing:.13em; text-align:center; text-transform:uppercase; }
+@media(max-width:759px) { .trial-promo { grid-template-columns:1fr; gap:10px; margin-top:22px; padding:26px 22px; } .trial-promo__cta { width:100%; font-size:16px; } .trial-promo__visual { padding:12px 3px 0; } .trial-promo__visual img { transform:none; } }
   </style>
   <!-- data:css:end -->
 </head>
@@ -306,14 +320,26 @@ a:hover > .go { color: var(--lav); transform: translateX(3px); }
         </div>
       </div>
       <nav class="quick" aria-label="Quick links">
-        <a target="_blank" rel="noopener" class="quick__a quick__a--main" href="https://developdevice.com/"><b>Visit the store</b><small>Everything in one place</small></a>
+        <a target="_blank" rel="noopener" class="quick__a quick__a--main" href="https://developdevice.com/pages/hub#plugin-installers"><b>Free 7-day trials</b><small>15 plugins &amp; apps · Mac + Windows</small></a>
         <a target="_blank" rel="noopener" class="quick__a" href="https://developdevice.com/collections/top-25-this-week"><b>Weekly hits</b><small>Top 25 this week</small></a>
-        <a class="quick__a" href="#new"><b>New releases</b><small>Fresh from the studio</small></a>
+        <a target="_blank" rel="noopener" class="quick__a" href="https://developdevice.com/"><b>Visit the store</b><small>Everything in one place</small></a>
         <a target="_blank" rel="noopener" class="quick__a" href="https://developdevice.com/collections/premium-custom-services"><b>Custom work</b><small>Mixing, presets, templates</small></a>
         <a target="_blank" rel="noopener" class="quick__a" href="https://developdevice.com/pages/hub"><b>Develop Device Hub</b><small>All your downloads in one place</small></a>
         <a target="_blank" rel="noopener" class="quick__a" href="https://developdevice.com/pages/contact"><b>Contact</b><small>Questions and support</small></a>
       </nav>
     </header>
+
+    <section class="trial-promo" aria-labelledby="trial-title" id="free-trials">
+      <div>
+        <span class="trial-promo__tag">Free 7-day trials · Mac + Windows</span>
+        <h2 id="trial-title">Your next sound.<br><span>Try it in your studio.</span></h2>
+        <p>Explore 15 plugins and apps in your own sessions. Download any installer without an account or order.</p>
+        <a class="trial-promo__cta" href="https://developdevice.com/pages/hub#plugin-installers" target="_blank" rel="noopener">Download free trials <span aria-hidden="true">↗</span></a>
+        <small>Sign in to activate after installing. Your 7 days start with the first activation.</small>
+      </div>
+      <div class="trial-promo__visual"><img src="/assets/img/trial-argwave3.jpg" width="1600" height="1067" alt="ArgWave 3 synthesizer, one of the 15 plugins and apps available to try" loading="lazy"><span class="trial-promo__caption">Synths · Mixing · Guitar · Drums</span></div>
+    </section>
+
 
     <section class="block" aria-labelledby="gear-title">
       <div class="block__head"><h2 id="gear-title">Browse by gear</h2><a target="_blank" rel="noopener" class="more" href="https://developdevice.com/collections/all">Shop all <span aria-hidden="true">→</span></a></div>
