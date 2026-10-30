@@ -39,3 +39,12 @@ local preview server; set `LINKS_URL=https://links.developdevice.com/` for read-
 live verification. Chromium/WebKit at 390, 768, 1440 and 1920 px; exact 1600px desktop
 content width, image decoding, no page overflow and correct trial destination.
 Evidence and final release receipt: `/srv/dd/data/links-hub-trials-20261021/`.
+
+## Black November (30 October 2026)
+
+The first quick link and a full-width panel above the trials lead to `/pages/black-friday` (UTM
+`utm_campaign=black-november-2026`): up to −50 %, 2 items −30 %, 3 items −40 %, 4+ items −50 %, until Thursday
+26 November 14:59 CET. Both carry `data-bn-until="2026-11-26T14:00:00Z"` and an inline script removes them after that
+moment, so the page never shows a stale offer and never mentions the Black Friday tiers early. Swap the panel for the
+Black Friday to Cyber Monday wording on 26 November. The image is a frame of the Black November promo video. The
+"Custom work" quick link was removed the same day (the custom services are cancelled for good).
