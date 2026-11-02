@@ -77,13 +77,7 @@ await job("apps", async () => {
   return list.length ? list.map((p) => pcard(p, p.product_type || "Plugin")).join("\n") : "";
 });
 
-await job("services", async () => {
-  // Only real custom services (same rule as the store's "Fully booked" badge); software in the collection is left out.
-  const list = (await products("premium-custom-services", 10)).filter((p) => !SKIP(p) && /Custom Services/.test(p.product_type || "")).slice(0, 4);
-  return list.length ? list.map((p) => A(`${STORE}/products/${p.handle}?${UTM}`, "svc",
-    `<img loading="lazy" width="160" height="160" alt="${esc(short(p.title))}" src="${esc(img(p.images[0].src, 160, 160))}">` +
-    `<span class="svc__tx"><b>${esc(short(p.title))}</b><small>${esc(p.title.includes(":") ? p.title.split(":").slice(1).join(":").trim() : p.product_type || "")}</small></span><span class="go" aria-hidden="true">→</span>`)).join("\n") : "";
-});
+// "services" block removed 2. 11. 2026: custom services are cancelled for good (owner).
 
 await job("videos", async () => {
   const xml = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL}`, "text");
