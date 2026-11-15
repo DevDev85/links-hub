@@ -14,19 +14,19 @@ const img = (src, w, h) => src + (src.includes("?") ? "&" : "?") + `width=${w}&h
 const short = (t) => t.replace(/:.*$/, "").trim();
 const kind = (p) => {
   const t = `${p.product_type || ""} ${p.title}`;
-  if (/serum|vital|wavetable|synth/i.test(t)) return "Synth presets";
+  if (/serum|vital|wavetable|synth|massive xl|hydrasynth|deepmind|modwave|multi\/poly/i.test(t) && !/plugin/i.test(t)) return "Synth presets";
   if (/midi/i.test(t) && !/humaniz|convert/i.test(t)) return "Drum MIDI";
   if (/plugin|\bapp\b|vst|humaniz|convert/i.test(t)) return "Plugin";
   if (/axe-fx|fm3|fm9|helix|kemper|quad cortex|\bnam\b|tonex|\bir\b|patch|profile/i.test(t)) return "Guitar tones";
   if (/template/i.test(t)) return "DAW template";
-  if (/superior drummer|ezdrummer|getgood|modo|addictive|drum preset|\bkit\b|sdx|ezx/i.test(t)) return "Drum preset";
+  if (/superior drummer|ezdrummer|getgood|\bggd\b|modo|addictive|drum preset|\bkit\b|sdx|ezx/i.test(t)) return "Drum preset";
   return "Develop Device";
 };
 const A = (href, cls, inner) => `<a class="${cls}" target="_blank" rel="noopener" href="${href}">${inner}</a>`;
 // Responsive product images: the browser picks 200/300/400 px by the real card width (the CDN already serves WebP/AVIF).
 const SIZES = {
-  six: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 70px) / 6), (min-width: 760px) calc((100vw - 86px) / 4), 44vw",
-  eight: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 98px) / 8), (min-width: 760px) calc((100vw - 86px) / 4), 44vw",
+  six: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 70px) / 6), (min-width: 760px) calc((100vw - 92px) / 4), 46vw",
+  eight: "(min-width: 1100px) calc((min(100vw - 56px, 1600px) - 98px) / 8), (min-width: 760px) calc((100vw - 92px) / 4), 46vw",
 };
 const srcset = (src) => [200, 300, 400].map((w) => `${esc(img(src, w, w))} ${w}w`).join(", ");
 const pcard = (p, label, rank, sizes = SIZES.six) => A(`${STORE}/products/${p.handle}?${UTM}`, "pcard",
@@ -76,8 +76,6 @@ await job("apps", async () => {
   const list = (await products("apps", 30)).filter((p) => !SKIP(p)).slice(0, 12);
   return list.length ? list.map((p) => pcard(p, p.product_type || "Plugin")).join("\n") : "";
 });
-
-// "services" block removed 2. 11. 2026: custom services are cancelled for good (owner).
 
 await job("videos", async () => {
   const xml = await get(`https://www.youtube.com/feeds/videos.xml?channel_id=${YT_CHANNEL}`, "text");
